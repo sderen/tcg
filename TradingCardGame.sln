@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCardGame.Domain", "TradingCardGame.Domain\TradingCardGame.Domain.csproj", "{1CBF0C52-99AD-4A59-82EF-1F826BFE0FB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCardGame.Domain.UnitTest", "TradingCardGame.Domain.UnitTest\TradingCardGame.Domain.UnitTest.csproj", "{CFA59FD2-EE6D-44A4-A14C-757DC9ED7342}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CBF0C52-99AD-4A59-82EF-1F826BFE0FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CBF0C52-99AD-4A59-82EF-1F826BFE0FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CBF0C52-99AD-4A59-82EF-1F826BFE0FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CBF0C52-99AD-4A59-82EF-1F826BFE0FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA59FD2-EE6D-44A4-A14C-757DC9ED7342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA59FD2-EE6D-44A4-A14C-757DC9ED7342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA59FD2-EE6D-44A4-A14C-757DC9ED7342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA59FD2-EE6D-44A4-A14C-757DC9ED7342}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

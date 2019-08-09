@@ -1,0 +1,60 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/TradingCardGame.Domain.UnitTest.csproj",
+    "projectName": "TradingCardGame.Domain.UnitTest",
+    "projectPath": "/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/TradingCardGame.Domain.UnitTest.csproj",
+    "outputPath": "/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/obj/",
+    "projectStyle": "PackageReference",
+    "originalTargetFrameworks": [
+      "netcoreapp2.2"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {},
+      "https://dfds.pkgs.visualstudio.com/_packaging/BosphorusFeed/nuget/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp2.2": {
+        "projectReferences": {
+          "/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/TradingCardGame.Domain.csproj": {
+            "projectPath": "/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/TradingCardGame.Domain.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.2": {
+      "dependencies": {
+        "Microsoft.NET.Test.Sdk": {
+          "target": "Package",
+          "version": "[15.9.0, )"
+        },
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.2.0, )",
+          "autoReferenced": true
+        },
+        "xunit": {
+          "target": "Package",
+          "version": "[2.4.0, )"
+        },
+        "xunit.runner.visualstudio": {
+          "target": "Package",
+          "version": "[2.4.0, )"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

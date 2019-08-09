@@ -1,0 +1,17 @@
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/xunit.runner.visualstudio.dotnetcore.testadapter.dll
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/xunit.runner.reporters.netcoreapp10.dll
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/xunit.runner.utility.netcoreapp10.dll
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.deps.json
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.runtimeconfig.json
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.runtimeconfig.dev.json
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.dll
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.pdb
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/TradingCardGame.Domain.dll
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/bin/Debug/netcoreapp2.2/TradingCardGame.Domain.pdb
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/obj/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.csprojAssemblyReference.cache
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/obj/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.csproj.CoreCompileInputs.cache
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/obj/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.AssemblyInfoInputs.cache
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/obj/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.AssemblyInfo.cs
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/obj/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.csproj.CopyComplete
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/obj/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.dll
+/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain.UnitTest/obj/Debug/netcoreapp2.2/TradingCardGame.Domain.UnitTest.pdb
