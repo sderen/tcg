@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Xunit;
 
@@ -15,13 +16,13 @@ namespace TradingCardGame.Domain.UnitTest
             Assert.Equal(30, playerState.Health);
             Assert.False(playerState.IsDead());
             Assert.Equal(0, playerState.AvailableManaSlots);
+            Assert.Equal(17, playerState.DeckCardCount);
             var hand = playerState.Hand.ToArray();
-            Assert.Equal(5, hand.Length);
-            Assert.NotEqual(11, hand[0]);
-            Assert.NotEqual(11, hand[1]);
-            Assert.NotEqual(11, hand[2]);
-            Assert.Equal(11, hand[3]);
-            Assert.Equal(11, hand[4]);
+            Assert.Equal(3, hand.Length);
+            Assert.NotNull(hand[0]);
+            Assert.NotNull(hand[1]);
+            Assert.NotNull(hand[2]);
+ 
         }
 
         [Fact]
@@ -35,6 +36,8 @@ namespace TradingCardGame.Domain.UnitTest
                 Assert.True(playerState.IsActive);
                 Assert.Equal(i + 1, playerState.TotalManaSlots);
                 Assert.Equal(i + 1, playerState.AvailableManaSlots);
+                Assert.Equal(Math.Min(i + 4, 5), playerState.Hand.Count);
+                Assert.Equal(16 - i, playerState.DeckCardCount);
                 playerState.Deactivate();
                 Assert.False(playerState.IsActive);
             }
@@ -80,6 +83,26 @@ namespace TradingCardGame.Domain.UnitTest
             playerState.DamagePlayer(35);
             
             Assert.True(playerState.IsDead());
+        }
+
+        [Fact]
+        public void Test_Player_Takes_Damage_For_Drawing_After_Deck_Is_Empty()
+        {
+            var playerState = new PlayerState();
+            for (int i = 0; i < 17; i++)
+            {
+                playerState.Activate();
+                playerState.Deactivate();
+            }
+            
+            Assert.Equal(30, playerState.Health);
+            for (int i = 29; i <= 0; i--)
+            {
+                playerState.Activate();
+                Assert.Equal(i, playerState.Health);
+                playerState.Deactivate();
+            }
+
         }
         
         

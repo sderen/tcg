@@ -10,36 +10,29 @@ namespace TradingCardGame.Domain
     {
         private const byte MaxHealth = 30;
         private const byte MaxManaSlots = 10;
-        private const int MaxHandSize = 5;
         private const int InitialDrawSize = 3;
-        private const byte EmptyHandSlot = 11;
         
-        private static readonly byte[] CardCosts = new byte[] {0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8};
-        private static readonly int[] EmptyPositions = new int[] {4, 3, 2, 1, 0};
 
         public bool IsActive { get; private set; }
         public byte TotalManaSlots { get; private set; }
         public byte AvailableManaSlots { get; private set; }
         public byte Health { get; private set; }
 
-        public IReadOnlyCollection<byte> Hand => new ReadOnlyCollection<byte>(_hand); //TODO improve it, do not return empty card slots
+        public int DeckCardCount => _deck.CardCount;
 
-        private byte[] _hand; //TODO: improve whole hand management
-        private Stack<byte> _deck;
-        private Stack<int> _emptyPositionsInHand;
+        public IReadOnlyCollection<byte> Hand => _hand.CardsInHand;
+
+        private Deck _deck;
+        private Hand _hand;
 
 
         public PlayerState()
         {
             Health = MaxHealth;
 
-            _deck = KnuthShuffleNewDeck();
-            _emptyPositionsInHand = new Stack<int>(EmptyPositions);
-            _hand = new byte[MaxHandSize];
-            for (int i = 0; i < _hand.Length; i++)
-            {
-                _hand[i] = EmptyHandSlot;
-            }
+            _deck = new Deck();
+            _hand = new Hand();
+            
 
             for (int i = 0; i < InitialDrawSize; i++)
             {
@@ -73,13 +66,14 @@ namespace TradingCardGame.Domain
 
             IsActive = true;
             
-            //TODO: draw
             if (TotalManaSlots < MaxManaSlots)
             {
                 TotalManaSlots++;
             }
 
             AvailableManaSlots = TotalManaSlots;
+            
+            DrawCard();
         }
 
         public void Deactivate()
@@ -90,28 +84,15 @@ namespace TradingCardGame.Domain
         //TODO: think about multithreading in general
         private void DrawCard()
         {
-            if (_deck.Count == 0)
+            var card = _deck.DrawCard();
+            if (card == null)
             {
                 DamagePlayer(1);
                 return;
             }
 
-            var card = _deck.Pop();
-
-            if (_emptyPositionsInHand.Count== 0)
-            {
-                //discard the card
-                return;
-            }
-
-            _hand[_emptyPositionsInHand.Pop()] = card;
+            _hand.AddCardToHand(card.Value); //TODO: do i need return value anywhere 
         }
 
-        private Stack<byte> KnuthShuffleNewDeck()
-        {
-            //TODO: apply knuth
-            var random = new Random();
-            return new Stack<byte>(CardCosts.OrderBy(e => random.Next()));
-        }
     }
 }
