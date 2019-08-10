@@ -1,9 +1,0 @@
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/bin/Debug/netstandard2.0/TradingCardGame.Domain.deps.json
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/bin/Debug/netstandard2.0/TradingCardGame.Domain.dll
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/bin/Debug/netstandard2.0/TradingCardGame.Domain.pdb
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/obj/Debug/netstandard2.0/TradingCardGame.Domain.csprojAssemblyReference.cache
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/obj/Debug/netstandard2.0/TradingCardGame.Domain.csproj.CoreCompileInputs.cache
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/obj/Debug/netstandard2.0/TradingCardGame.Domain.AssemblyInfoInputs.cache
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/obj/Debug/netstandard2.0/TradingCardGame.Domain.AssemblyInfo.cs
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/obj/Debug/netstandard2.0/TradingCardGame.Domain.dll
-/home/sderen/personal/TCG/TradingCardGame/TradingCardGame.Domain/obj/Debug/netstandard2.0/TradingCardGame.Domain.pdb
