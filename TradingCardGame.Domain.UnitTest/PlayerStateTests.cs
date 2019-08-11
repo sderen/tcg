@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 using Xunit;
 
 namespace TradingCardGame.Domain.UnitTest
@@ -9,7 +10,7 @@ namespace TradingCardGame.Domain.UnitTest
         [Fact]
         public void Test_PlayerState_Is_Initialized_Properly()
         {
-            var playerState = new PlayerState();
+            var playerState = new PlayerState(new SimpleShuffler());
             
             Assert.False(playerState.IsActive);
             Assert.Equal(0, playerState.TotalManaSlots);
@@ -28,7 +29,7 @@ namespace TradingCardGame.Domain.UnitTest
         [Fact]
         public void Test_PlayerState_Activate_And_Deactivate_Works_Correctly()
         {
-            var playerState = new PlayerState();
+            var playerState = new PlayerState(new SimpleShuffler());
             
             for (int i = 0; i < 10; i++)
             {
@@ -51,7 +52,7 @@ namespace TradingCardGame.Domain.UnitTest
         [Fact]
         public void Test_PlayerState_Activation_Is_Idempotent()
         {
-            var playerState = new PlayerState();
+            var playerState = new PlayerState(new SimpleShuffler());
             
             playerState.Activate();
             Assert.Equal(1, playerState.TotalManaSlots);
@@ -62,7 +63,7 @@ namespace TradingCardGame.Domain.UnitTest
         [Fact]
         public void Test_Player_Is_Damaged_Correctly_And_Dead_After_Health_Is_Equal_To_Zero()
         {
-            var playerState = new PlayerState();
+            var playerState = new PlayerState(new SimpleShuffler());
             
             Assert.False(playerState.IsDead());
             playerState.DamagePlayer(3);
@@ -76,9 +77,9 @@ namespace TradingCardGame.Domain.UnitTest
         }
 
         [Fact]
-        public void Test_Player_Is_Damaged_Correctly_And_Dead_After_Health_Is_Equal_Below_Zero()
+        public void Test_Player_Is_Damaged_Correctly_And_Dead_After_Health_Is_Below_Zero()
         {
-            var playerState = new PlayerState();
+            var playerState = new PlayerState(new SimpleShuffler());
             
             playerState.DamagePlayer(35);
             
@@ -88,7 +89,7 @@ namespace TradingCardGame.Domain.UnitTest
         [Fact]
         public void Test_Player_Takes_Damage_For_Drawing_After_Deck_Is_Empty()
         {
-            var playerState = new PlayerState();
+            var playerState = new PlayerState(new SimpleShuffler());
             for (int i = 0; i < 17; i++)
             {
                 playerState.Activate();
@@ -104,7 +105,23 @@ namespace TradingCardGame.Domain.UnitTest
             }
 
         }
-        
+
+        [Fact]
+        public void Test_PlayCard_Removes_CardFrom_Hand()
+        {
+            var playerState = new PlayerState(null);
+            var hand = playerState.Hand;
+            for (int i = 0; i < 3; i++)
+            {
+                playerState.Activate();
+                playerState.Deactivate();
+            }
+            playerState.Activate();
+            playerState.PlayCard(1);
+            Assert.Equal(4, playerState.Hand.Count);
+            Assert.Equal(hand.ElementAt(0), playerState.Hand.ElementAt(0));
+            Assert.Equal(hand.ElementAt(2), playerState.Hand.ElementAt(1));
+        }
         
     }
 }

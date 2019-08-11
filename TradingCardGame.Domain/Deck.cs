@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+[assembly:InternalsVisibleTo("TradingCardGame.Domain.UnitTest")]
 namespace TradingCardGame.Domain
 {
-    public class Deck
+    internal class Deck
     {
         private static readonly byte[] CardCosts = new byte[] {0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8};
         
@@ -14,9 +16,9 @@ namespace TradingCardGame.Domain
 
         public int CardCount => _cards.Count;
 
-        public Deck()
+        public Deck(IDeckShuffler shuffler)
         {
-            _cards = KnuthShuffleNewDeck();
+            _cards = new Stack<byte>(shuffler?.Shuffle(CardCosts) ?? new List<byte>(CardCosts.Reverse()));
         }
 
         public byte? DrawCard()

@@ -26,11 +26,11 @@ namespace TradingCardGame.Domain
         private Hand _hand;
 
 
-        public PlayerState()
+        public PlayerState(IDeckShuffler deckShuffler)
         {
             Health = MaxHealth;
 
-            _deck = new Deck();
+            _deck = new Deck(deckShuffler);
             _hand = new Hand();
             
 
@@ -81,6 +81,22 @@ namespace TradingCardGame.Domain
             IsActive = false;
         }
 
+        public void PlayCard(int cardIndex)
+        {
+            if (Hand.Count < cardIndex)
+            {
+                throw new ArgumentOutOfRangeException(nameof(cardIndex));
+            }
+
+            var card = Hand.ElementAt(cardIndex);
+            if (card > AvailableManaSlots)
+            {
+                throw new InvalidOperationException("Cannot play this card with current available mana slots.");
+            }
+            _hand.RemoveCardAtIndex(cardIndex);
+            AvailableManaSlots -= card;
+        }
+        
         //TODO: think about multithreading in general
         private void DrawCard()
         {

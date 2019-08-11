@@ -6,7 +6,7 @@ using System.Net;
 
 namespace TradingCardGame.Domain
 {
-    public class Hand
+    internal class Hand
     {
         private const int MaxHandSize = 5;
         
