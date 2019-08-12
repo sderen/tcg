@@ -26,5 +26,10 @@ namespace TradingCardGame.Domain
             DeckSize = deckSize;
             OpponentDeckSize = opponentDeckSize;
         }
+
+        public override string ToString()
+        {
+            return $"Hand: {string.Join("-", Hand)}\tOpponentHandSize: {OpponentHandCount}\nYourHealth: {Health}\tOpponentHealth: {OpponentHealth}\nYourDeckSize: {DeckSize}\tOpponentDeckSize: {OpponentDeckSize}\nTick: {Tick}\n------------\n";
+        }
     }
 }

@@ -4,16 +4,19 @@ using System.Threading.Tasks;
 
 namespace TradingCardGame.Domain
 {
+    // Game could also become the service Layer since it just drives the whole process with the actions.
     public class Game
     {
+        private readonly bool _throwExceptions;
         private Player _activePlayer;
         private Player _passivePlayer;
 
         public bool IsStarted { get; private set; }
         public int Tick { get; private set; }
         
-        public Game(Player playerA, Player playerB)
+        public Game(Player playerA, Player playerB, bool throwExceptions = true)
         {
+            _throwExceptions = throwExceptions;
             if (new Random().Next(0, 2) == 0)
             {
                 _activePlayer = playerA;
@@ -39,57 +42,73 @@ namespace TradingCardGame.Domain
 
             await ActivatePlayerAsync(_activePlayer);
             IsStarted = true;
+            await SendSummaryAsync(false);
         }
 
-        //TODO: race conditions will affect this, a game tick counter would help with it in the future iterations
+        //TODO: race conditions will affect this
         private async void PlayerCommunicatorOnActionPerformed(object sender, PlayedEventArgs e)
         {
-            if (!IsStarted)
+            try
             {
-                throw new InvalidOperationException("Can not consume events, since game has not been started yet");
-            }
-            
-            if (!(sender is IPlayerCommunicator communicator) || !communicator.RelevantPlayerState.IsActive)
-            {
-                throw new InvalidOperationException();
-            }
-
-            if (e.Tick != Tick)
-            {
-                throw new InvalidOperationException("Message does not belong to current tick, only one action per tick can be performed");
-            }
-
-            if (e.ActionType == PlayerActionType.PlayedCard)
-            {
-                var card = _activePlayer.State.Hand.ElementAt(e.CardIndex);
-                _activePlayer.State.PlayCard(e.CardIndex);
-                //TODO: get card 
-                _passivePlayer.State.DamagePlayer(card);
-
-                if (_passivePlayer.State.IsDead())
+                if (!IsStarted)
                 {
-                    await FinishTheGameAsync();
+                    throw new InvalidOperationException("Can not consume events, since game has not been started yet");
+                }
+
+                if (!(sender is IPlayerCommunicator communicator) || !communicator.RelevantPlayerState.IsActive)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                if (e.Tick != Tick)
+                {
+                    throw new InvalidOperationException(
+                        "Message does not belong to current tick, only one action per tick can be performed");
+                }
+
+                if (e.ActionType == PlayerActionType.PlayedCard)
+                {
+                    var card = _activePlayer.State.Hand.ElementAt(e.CardIndex);
+                    _activePlayer.State.PlayCard(e.CardIndex);
+                    //TODO: get card 
+                    _passivePlayer.State.DamagePlayer(card);
+
+                    if (_passivePlayer.State.IsDead())
+                    {
+                        await FinishTheGameAsync();
+                    }
+                }
+                else if (e.ActionType == PlayerActionType.EndedTurn)
+                {
+                    await SwitchActivePlayerAsync();
+                }
+
+                await SendSummaryAsync();
+            }
+            catch
+            {
+                if (_throwExceptions)
+                {
+                    throw;
                 }
             }
-            else if (e.ActionType == PlayerActionType.EndedTurn)
-            {
-                await SwitchActivePlayerAsync();
-            }
-            
-            await IncrementTickAndSendSummaryAsync();
         }
 
-        private async Task IncrementTickAndSendSummaryAsync()
+        private async Task SendSummaryAsync(bool incrementTick = true)
         {
-            Tick++;
+            if (incrementTick)
+            {
+                Tick++;
+            }
+
             await Task.WhenAll(
-                SendSummary(_activePlayer, _passivePlayer),
-                SendSummary(_passivePlayer, _activePlayer)
+                SendSummaryToPlayerAsync(_activePlayer, _passivePlayer),
+                SendSummaryToPlayerAsync(_passivePlayer, _activePlayer)
             );
 
         }
 
-        private async Task SendSummary(Player target, Player opponent)
+        private async Task SendSummaryToPlayerAsync(Player target, Player opponent)
         {
             var gs = new GameState(target.State.Hand, Tick, target.State.Health, opponent.State.Health, opponent.State.Hand.Count, target.State.IsActive, target.State.DeckCardCount, opponent.State.DeckCardCount);
             await target.PlayerCommunicator.CommunicateWithPlayerAsync(new CommunicationPackage(gs));

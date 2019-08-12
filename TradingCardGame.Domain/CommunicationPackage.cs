@@ -25,7 +25,7 @@ namespace TradingCardGame.Domain
 
         public override string ToString()
         {
-            return $"{GameEventType} {PlayerActionType}";
+            return $"{GameEventType} {PlayerActionType} \n\t{GameState}";
         }
     }
 }
