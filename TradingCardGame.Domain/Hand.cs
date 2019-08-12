@@ -9,8 +9,6 @@ namespace TradingCardGame.Domain
     internal class Hand
     {
         private const int MaxHandSize = 5;
-        
-        private readonly object _lock = new object();
 
         private readonly LinkedList<byte> _hand;
 
@@ -26,14 +24,8 @@ namespace TradingCardGame.Domain
         {
             if (_hand.Count < MaxHandSize)
             {
-                lock (_lock)
-                {
-                    if (_hand.Count < MaxHandSize)
-                    {
-                        _hand.AddLast(card);
-                        return true;
-                    }
-                }
+                _hand.AddLast(card);
+                return true;
             }
 
             return false;
@@ -47,15 +39,12 @@ namespace TradingCardGame.Domain
             }
             
             LinkedListNode<byte> node = _hand.First; //could get last if idx > 2, too little gain for it though
-            lock (_lock)
+            for (int i = 0; i < handIndex; i++)
             {
-                for (int i = 0; i < handIndex; i++)
-                {
-                    node = node.Next;
-                }
-
-                _hand.Remove(node);
+                node = node.Next;
             }
+
+            _hand.Remove(node);
         }
 
     }
