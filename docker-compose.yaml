@@ -1,0 +1,6 @@
+version: '3'
+services:
+  inprocessclient:
+    build: 
+      context: .
+      dockerfile: ./TradingCardGame.Impl.InProcessConsoleClient/Dockerfile
