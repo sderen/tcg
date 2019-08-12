@@ -22,8 +22,8 @@ namespace TradingCardGame.Domain
 
         public IReadOnlyCollection<byte> Hand => _hand.CardsInHand;
 
-        private Deck _deck;
-        private Hand _hand;
+        private readonly Deck _deck;
+        private readonly Hand _hand;
 
 
         public PlayerState(IDeckShuffler deckShuffler)

@@ -12,7 +12,7 @@ namespace TradingCardGame.Domain
         
         private readonly object _lock = new object();
 
-        private LinkedList<byte> _hand;
+        private readonly LinkedList<byte> _hand;
 
         public IReadOnlyCollection<byte> CardsInHand => new ReadOnlyCollection<byte>(_hand.ToList()); //TODO improve it
 
