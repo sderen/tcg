@@ -1,5 +1,9 @@
 # Simple Trading Card Game
 
+## Github link
+
+https://github.com/sderen/tcg
+
 ## Idea
 
 My idea was to implement simple game structure and make it easy to consume and improve. It is relatively easy to add network features, because only one interface (IPlayerCommunicator) is responsible from communicating right now. 
