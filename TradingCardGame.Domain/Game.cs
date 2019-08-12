@@ -9,8 +9,9 @@ namespace TradingCardGame.Domain
         private Player _activePlayer;
         private Player _passivePlayer;
 
-        private bool isStarted;
-
+        public bool IsStarted { get; private set; }
+        public int Tick { get; private set; }
+        
         public Game(Player playerA, Player playerB)
         {
             if (new Random().Next(0, 2) == 0)
@@ -37,13 +38,13 @@ namespace TradingCardGame.Domain
                     new CommunicationPackage(GameEventType.GameStarted)));
 
             await ActivatePlayerAsync(_activePlayer);
-            isStarted = true;
+            IsStarted = true;
         }
 
-        //TODO: race conditions will affect this
+        //TODO: race conditions will affect this, a game tick counter would help with it in the future iterations
         private async void PlayerCommunicatorOnActionPerformed(object sender, PlayedEventArgs e)
         {
-            if (!isStarted)
+            if (!IsStarted)
             {
                 throw new InvalidOperationException("Can not consume events, since game has not been started yet");
             }
@@ -53,7 +54,11 @@ namespace TradingCardGame.Domain
                 throw new InvalidOperationException();
             }
 
-            //TODO: assume it is active for now, change it later
+            if (e.Tick != Tick)
+            {
+                throw new InvalidOperationException("Message does not belong to current tick, only one action per tick can be performed");
+            }
+
             if (e.ActionType == PlayerActionType.PlayedCard)
             {
                 var card = _activePlayer.State.Hand.ElementAt(e.CardIndex);
@@ -70,6 +75,24 @@ namespace TradingCardGame.Domain
             {
                 await SwitchActivePlayerAsync();
             }
+            
+            await IncrementTickAndSendSummaryAsync();
+        }
+
+        private async Task IncrementTickAndSendSummaryAsync()
+        {
+            Tick++;
+            await Task.WhenAll(
+                SendSummary(_activePlayer, _passivePlayer),
+                SendSummary(_passivePlayer, _activePlayer)
+            );
+
+        }
+
+        private async Task SendSummary(Player target, Player opponent)
+        {
+            var gs = new GameState(target.State.Hand, Tick, target.State.Health, opponent.State.Health, opponent.State.Hand.Count, target.State.IsActive, target.State.DeckCardCount, opponent.State.DeckCardCount);
+            await target.PlayerCommunicator.CommunicateWithPlayerAsync(new CommunicationPackage(gs));
         }
 
         private async Task ActivatePlayerAsync(Player player)

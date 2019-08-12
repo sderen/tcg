@@ -36,12 +36,6 @@ namespace TradingCardGame.Domain
 
             return null;
         }
-        
-        private Stack<byte> KnuthShuffleNewDeck()
-        {
-            //TODO: apply knuth
-            var random = new Random();
-            return new Stack<byte>(CardCosts.OrderBy(e => random.Next()));
-        }
+
     }
 }

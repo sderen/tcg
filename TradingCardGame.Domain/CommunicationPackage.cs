@@ -4,9 +4,9 @@ namespace TradingCardGame.Domain
     {
         public GameEventType? GameEventType { get;}
         public PlayerActionType? PlayerActionType { get; }
-        public string StringPayload { get; set; }
-        public int? IntPayload { get; set; }
-        
+
+        public GameState GameState { get; }
+
         public CommunicationPackage(GameEventType gameEventType)
         {
             GameEventType = gameEventType;
@@ -17,9 +17,15 @@ namespace TradingCardGame.Domain
             PlayerActionType = playerActionType;
         }
 
+        public CommunicationPackage(GameState gameState)
+        {
+            GameEventType = Domain.GameEventType.State;
+            GameState = gameState;
+        }
+
         public override string ToString()
         {
-            return $"{GameEventType} {PlayerActionType} {StringPayload} {IntPayload}";
+            return $"{GameEventType} {PlayerActionType}";
         }
     }
 }

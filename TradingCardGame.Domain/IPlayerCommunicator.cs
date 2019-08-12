@@ -12,5 +12,7 @@ namespace TradingCardGame.Domain
         void SetPlayerState(PlayerState playerState);
         
         PlayerState RelevantPlayerState { get; }
+
+        void PerformPlayerAction(PlayedEventArgs args);
     }
 }
